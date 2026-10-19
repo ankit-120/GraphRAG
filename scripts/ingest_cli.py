@@ -11,6 +11,7 @@ from graphrag.graph.client import create_driver
 from graphrag.graph.repository import GraphRepository
 from graphrag.graph.schema import init_schema
 from graphrag.ingestion.extraction import EntityExtractor
+from graphrag.ingestion.image_description import ImageDescriber
 from graphrag.pipeline import IngestionPipeline
 
 
@@ -27,8 +28,19 @@ def main() -> None:
     repository = GraphRepository(driver)
     embedding_client = EmbeddingClient(genai_client, settings.gemini_embedding_model)
     extractor = EntityExtractor(genai_client, settings.gemini_llm_model)
+    image_describer = (
+        ImageDescriber(genai_client, settings.gemini_llm_model)
+        if settings.enable_image_descriptions
+        else None
+    )
     pipeline = IngestionPipeline(
-        repository, extractor, embedding_client, settings.chunk_size, settings.chunk_overlap
+        repository,
+        extractor,
+        embedding_client,
+        settings.chunk_size,
+        settings.chunk_overlap,
+        image_describer,
+        settings.min_image_dimension,
     )
 
     content = args.path.read_bytes()

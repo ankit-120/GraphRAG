@@ -10,7 +10,7 @@ dependencies = [
     "google-genai>=0.3",
     "pydantic>=2.9",
     "pydantic-settings>=2.6",
-    "pypdf>=5.0",
+    "pypdf[image]>=5.0",
     "tenacity>=9.0",
     "python-multipart>=0.0.12",
 ]

@@ -19,6 +19,9 @@ class Settings(BaseSettings):
     chunk_size: int = 1000
     chunk_overlap: int = 150
 
+    enable_image_descriptions: bool = True
+    min_image_dimension: int = 64
+
     local_search_top_k: int = 5
     local_search_hops: int = 2
 

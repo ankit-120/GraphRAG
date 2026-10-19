@@ -15,6 +15,16 @@ even when no single chunk mentions both facts.
    seed entities, the graph is traversed 1-2 hops out from those entities to pull in connected
    facts and their source chunks, and Gemini synthesizes an answer grounded in that context.
 
+### Charts and images in PDFs
+
+Embedded raster images (PNG/JPEG baked into a PDF page — e.g. charts exported from
+Excel/PowerPoint, screenshots, scanned figures) are described factually by Gemini's vision
+model and inlined into that page's text before chunking, so their content becomes part of the
+knowledge graph like any other sentence. Small/decorative images (logos, icons, bullets) are
+skipped automatically. This does **not** cover charts drawn as native PDF vector graphics (e.g.
+`matplotlib.savefig(...pdf)`) — only embedded picture files. Controlled via `ENABLE_IMAGE_DESCRIPTIONS`
+and `MIN_IMAGE_DIMENSION` in `.env`.
+
 ## Setup
 
 ```bash
